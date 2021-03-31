@@ -2,10 +2,12 @@ from tkinter import *
 import tkinter.font as font
 
 root = Tk()
-root.geometry('400x420')
+root.geometry('366x480')
 root.title("Simple Calculator")
+p1 = PhotoImage(file='iconImg.png')
+root.iconphoto(False, p1)
 
-entry = Entry(root, width=40, borderwidth=5, bg='black', fg='white')
+entry = Entry(root, width=37, bd=5, bg='black', fg='white')
 entry.grid(row=0, column=0, columnspan=5, padx=10, pady=10, ipady=25)
 
 # define Functions
@@ -15,8 +17,8 @@ def add():
     firstNumber=entry.get()
     global fNum
     global math
-    math='addition'
-    fNum=int(firstNumber)
+    math = 'addition'
+    fNum = int(firstNumber)
     entry.delete(0, END)
 
 
@@ -48,16 +50,22 @@ def divide():
 
 
 def equal():
-    secondNum = entry.get()
+    # secondNum = entry.get()
+    # entry.delete(0, END)
+    # if math == 'addition':
+    #     entry.insert(0, fNum + int(secondNum))
+    # elif math == 'subtraction':
+    #     entry.insert(0, fNum - int(secondNum))
+    # elif math == 'multiplication':
+    #     entry.insert(0, fNum * int(secondNum))
+    # elif math == 'division':
+    #     entry.insert(0, fNum / int(secondNum))
+    global res
+    global result
+    res = entry.get()
     entry.delete(0, END)
-    if math == 'addition':
-        entry.insert(0, fNum + int(secondNum))
-    elif math == 'subtraction':
-        entry.insert(0,fNum - int(secondNum))
-    elif math == 'multiplication':
-        entry.insert(0, fNum * int(secondNum))
-    elif math == 'division':
-        entry.insert(0, fNum / int(secondNum))
+    result = eval(res)
+    entry.insert(0, result)
 
 
 def button_click(n):
@@ -68,6 +76,10 @@ def button_click(n):
 
 def button_clr():
     entry.delete(0, END)
+
+
+def button_bksp():
+    entry.delete(len(entry.get())-1)
 
 # define buttons
 
@@ -86,14 +98,15 @@ button9 = Button(root, font=myFont, text='9', padx=20, pady=20, fg='white', bg='
 button0 = Button(root, font=myFont, text='0', padx=20, pady=20, fg='white', bg='#12b886', command=lambda: button_click(0))
 buttonDec = Button(root, font=myFont, text='.', padx=22, pady=20, fg='white', bg='#12b886', command=lambda: button_click('.'))
 buttonClr = Button(root, font=myFont, text='CE', padx=11, pady=20, fg='white', bg='#12b886', command=button_clr)
+buttonBksp = Button(root, font=myFont, text='<-', padx=160, pady=20, fg='white', bg='#12b886', command=button_bksp)
 
-buttonAdd = Button(root, font=myFont, text='+', fg='white', bg='#fd7e14', padx=17, pady=57, command=add)
-buttonSub = Button(root, font=myFont, text='-', fg='white', bg='#fd7e14', padx=25, pady=20, command=sub)
-buttonDiv = Button(root, font=myFont, text='/', fg='white', bg='#fd7e14', padx=24, pady=20, command=divide)
-buttonMul = Button(root, font=myFont, text='X', fg='white', bg='#fd7e14', padx=22, pady=20, command=multiply)
+buttonAdd = Button(root, font=myFont, text='+', fg='white', bg='#fd7e14', padx=17, pady=57, command=lambda: button_click('+'))
+buttonSub = Button(root, font=myFont, text='-', fg='white', bg='#fd7e14', padx=25, pady=20, command=lambda: button_click('-'))
+buttonDiv = Button(root, font=myFont, text='/', fg='white', bg='#fd7e14', padx=24, pady=20, command=lambda: button_click('/'))
+buttonMul = Button(root, font=myFont, text='X', fg='white', bg='#fd7e14', padx=22, pady=20, command=lambda: button_click('*'))
 buttonEqu = Button(root, font=myFont, text='=', fg='white', bg='#fd7e14', padx=20, pady=20, command=equal)
-buttonBrOp = Button(root, font=myFont, text='(', fg='white', bg='#fd7e14', padx=25, pady=20, command= lambda :button_click(1))
-buttonBrCl = Button(root, font=myFont, text=')', fg='white', bg='#fd7e14', padx=22, pady=20, command= lambda :button_click(1))
+buttonBrOp = Button(root, font=myFont, text='(', fg='white', bg='#fd7e14', padx=25, pady=20, command=lambda: button_click('('))
+buttonBrCl = Button(root, font=myFont, text=')', fg='white', bg='#fd7e14', padx=22, pady=20, command=lambda: button_click(')'))
 
 # place buttons on screen
 
@@ -122,6 +135,8 @@ buttonDiv.grid(row=2, column=4)
 buttonSub.grid(row=3, column=3)
 buttonAdd.grid(row=3, column=4, rowspan=2)
 buttonEqu.grid(row=4, column=3)
+
+buttonBksp.grid(row=5, column=0, columnspan=5)
 
 
 root.mainloop()
