@@ -2,10 +2,12 @@ from tkinter import *
 import tkinter.font as font
 
 root = Tk()
-root.geometry('400x420')
+root.geometry('370x420')
 root.title("Simple Calculator")
+p1 = PhotoImage(file='iconImg.png')
+root.iconphoto(False, p1)
 
-entry = Entry(root, width=40, borderwidth=5, bg='black', fg='white')
+entry = Entry(root, width=37, bd=5, bg='black', fg='white')
 entry.grid(row=0, column=0, columnspan=5, padx=10, pady=10, ipady=25)
 
 # define Functions
@@ -15,10 +17,10 @@ def add():
     firstNumber=entry.get()
     global fNum
     global math
-    math='addition'
-    fNum=int(firstNumber)
-    entry.delete(0, END)
-
+    math = 'addition'
+    fNum = int(firstNumber)
+    entry.delete(0,END)
+    entry.insert(0, "{}+".format(firstNumber))
 
 def sub():
     firstNumber = entry.get()
@@ -53,7 +55,7 @@ def equal():
     if math == 'addition':
         entry.insert(0, fNum + int(secondNum))
     elif math == 'subtraction':
-        entry.insert(0,fNum - int(secondNum))
+        entry.insert(0, fNum - int(secondNum))
     elif math == 'multiplication':
         entry.insert(0, fNum * int(secondNum))
     elif math == 'division':
@@ -92,8 +94,8 @@ buttonSub = Button(root, font=myFont, text='-', fg='white', bg='#fd7e14', padx=2
 buttonDiv = Button(root, font=myFont, text='/', fg='white', bg='#fd7e14', padx=24, pady=20, command=divide)
 buttonMul = Button(root, font=myFont, text='X', fg='white', bg='#fd7e14', padx=22, pady=20, command=multiply)
 buttonEqu = Button(root, font=myFont, text='=', fg='white', bg='#fd7e14', padx=20, pady=20, command=equal)
-buttonBrOp = Button(root, font=myFont, text='(', fg='white', bg='#fd7e14', padx=25, pady=20, command= lambda :button_click(1))
-buttonBrCl = Button(root, font=myFont, text=')', fg='white', bg='#fd7e14', padx=22, pady=20, command= lambda :button_click(1))
+buttonBrOp = Button(root, font=myFont, text='(', fg='white', bg='#fd7e14', padx=25, pady=20, command=lambda: button_click('('))
+buttonBrCl = Button(root, font=myFont, text=')', fg='white', bg='#fd7e14', padx=22, pady=20, command=lambda: button_click(')'))
 
 # place buttons on screen
 
