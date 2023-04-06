@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter.font as font
 
 root = Tk()
-root.geometry('366x480')
+root.geometry('370x420')
 root.title("Simple Calculator")
 p1 = PhotoImage(file='iconImg.png')
 root.iconphoto(False, p1)
@@ -19,7 +19,8 @@ def add():
     global math
     math = 'addition'
     fNum = int(firstNumber)
-    entry.delete(0, END)
+    entry.delete(0,END)
+    entry.insert(0, "{}+".format(firstNumber))
 
 
 def sub():
@@ -66,6 +67,7 @@ def equal():
     entry.delete(0, END)
     result = eval(res)
     entry.insert(0, result)
+
 
 
 def button_click(n):
